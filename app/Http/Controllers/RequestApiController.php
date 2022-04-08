@@ -22,10 +22,12 @@ class RequestApiController extends Controller
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
         }else if( $methodo == 'POST' ){
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        }else if( $methodo == "PUT" ){
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+        }
 
-            if ( $json != "" ){
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
-            }
+        if ( $json != "" ){
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
         }
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
@@ -63,5 +65,13 @@ class RequestApiController extends Controller
 
     public function requestApiPost($ruta,$data){
         return $this->requestConstructor('POST', $ruta, $data);
+    }
+
+    public function requestApiGetJSON($ruta,$data){
+        return $this->requestConstructor('GET', $ruta, $data);
+    }
+
+    public function requestApiPutJSON($ruta,$data){
+        return $this->requestConstructor('PUT', $ruta, $data);
     }
 }

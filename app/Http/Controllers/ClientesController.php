@@ -20,12 +20,44 @@ class ClientesController extends Controller
         return response()->json($response);
     }
 
-    public function show(){
+    public function cliente_id(){
         extract(request()->only(['id','ruta', 'filter']));
-        $ruta = $ruta.'/'.$id;
+        //$ruta = $ruta.'/'.$id;
 
         $response = $this->response->requestApiGet($ruta); 
             
+        return response()->json($response);
+    }
+
+    public function cliente_filtro(Request $request){
+        $data = $request->all();
+        $ruta = $data['ruta'];
+        unset($data['ruta']);
+        //$ruta = $ruta.'/'.$id;
+
+        $response = $this->response->requestApiGetJSON($ruta,json_encode($data)); 
+            
+        return response()->json($response);
+    }
+
+    public function store(Request $request){
+        $data = $request->all();
+        $ruta = $data['ruta'];
+        unset($data['ruta']);
+
+        $response = $this->response->requestApiPost($ruta, json_encode($data)); 
+    
+        return response()->json($response);
+      
+    }
+
+    public function actualizar(Request $request){
+        $data = $request->all();
+        $ruta = $data['ruta'];
+        unset($data['ruta']);
+
+        $response = $this->response->requestApiPutJSON($ruta, json_encode($data)); 
+    
         return response()->json($response);
     }
 }

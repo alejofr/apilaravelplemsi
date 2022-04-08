@@ -36,4 +36,17 @@ class FacturasApiController extends Controller
         return response()->json($response);
     }
 
+    public function obtener_factura(){
+        extract(request()->only(['by', 'value', 'ruta']));
+
+        $response = $this->response->requestApiGet($ruta,[
+            "by" => $by,
+            "value" => $value
+        ]); 
+            
+        return response()->json($response);
+    }
+
+    
+
 }
